@@ -6,30 +6,30 @@
 @font-face { font-family: P; font-weight: 700; src: url(../node_modules/@fontsource/poppins/files/poppins-latin-700-normal.woff2); }
 @font-face { font-family: P; font-weight: 800; src: url(../node_modules/@fontsource/poppins/files/poppins-latin-800-normal.woff2); }
 * { box-sizing: border-box; margin: 0; }
-html, body { width: 1080px; height: 1920px; overflow: hidden; background: #082A59; font-family: P, sans-serif; }
-#stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #082A59; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #E5B527; font-family: P, sans-serif; }
+#stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #E5B527; }
 .sarang { position: absolute; right: -80px; top: -40px; width: 700px; height: 700px; opacity: .9;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='112' height='194' viewBox='0 0 56 97'%3E%3Cpath d='M28 0l28 16v32L28 64 0 48V16zM28 64l28 16v17M28 64L0 80v17' fill='none' stroke='%23E5B527' stroke-opacity='.18' stroke-width='1'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='112' height='194' viewBox='0 0 56 97'%3E%3Cpath d='M28 0l28 16v32L28 64 0 48V16zM28 64l28 16v17M28 64L0 80v17' fill='none' stroke='%23082A59' stroke-opacity='.12' stroke-width='1'/%3E%3C/svg%3E");
   -webkit-mask-image: radial-gradient(circle at 85% 10%, #000, transparent 70%); }
 .sarang.kiri { left: -80px; right: auto; top: auto; bottom: -40px; -webkit-mask-image: radial-gradient(circle at 15% 90%, #000, transparent 70%); }
 #kamera { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; }
 .lapis { position: absolute; inset: 0; opacity: 0; }
-.hp { position: absolute; left: 252px; top: 600px; width: 576px; height: 1210px; border-radius: 64px; background: #FBF7EC; padding: 18px; box-shadow: 0 40px 90px rgba(0,0,0,.45), 0 0 0 6px #E5B527; }
+.hp { position: absolute; left: 252px; top: 600px; width: 576px; height: 1210px; border-radius: 64px; background: #FBF7EC; padding: 18px; box-shadow: 0 40px 90px rgba(8,42,89,.45), 0 0 0 8px #082A59; }
 .hp .layar { width: 540px; height: 1174px; border-radius: 48px; overflow: hidden; position: relative; background: #082A59; }
 .hp .layar img { position: absolute; left: 0; top: 0; width: 540px; }
 .hp .notch { position: absolute; left: 50%; top: 30px; width: 130px; height: 30px; margin-left: -65px; border-radius: 20px; background: #0b1830; z-index: 2; }
-.judul { position: absolute; left: 70px; right: 70px; top: 190px; text-align: center; color: #fff; font-weight: 800; font-size: 74px; line-height: 1.08; letter-spacing: -.01em; text-shadow: 0 6px 0 rgba(3,18,42,.55); }
-.judul .k { color: #E5B527; }
-.sub { position: absolute; left: 90px; right: 90px; top: 0; text-align: center; color: #FBF7EC; font-weight: 600; font-size: 40px; line-height: 1.25; }
-.pil { display: inline-block; background: #E5B527; color: #082A59; font-weight: 800; border-radius: 999px; padding: 14px 34px; font-size: 40px; }
-.label-contoh { position: absolute; left: 0; right: 0; bottom: 92px; text-align: center; color: rgba(251,247,236,.8); font-size: 26px; font-weight: 600; }
-.label-contoh span { background: rgba(8,42,89,.85); padding: 8px 18px; border-radius: 12px; }
+.judul { position: absolute; left: 70px; right: 70px; top: 190px; text-align: center; color: #082A59; font-weight: 800; font-size: 74px; line-height: 1.12; letter-spacing: -.01em; }
+.judul .k { color: #082A59; background: #FBF7EC; padding: 0 .18em; border-radius: .18em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.sub { position: absolute; left: 90px; right: 90px; top: 0; text-align: center; color: #082A59; font-weight: 600; font-size: 40px; line-height: 1.25; }
+.pil { display: inline-block; background: #082A59; color: #FBF7EC; font-weight: 800; border-radius: 999px; padding: 14px 34px; font-size: 40px; }
+.label-contoh { position: absolute; left: 0; right: 0; bottom: 92px; text-align: center; color: #FBF7EC; font-size: 26px; font-weight: 600; }
+.label-contoh span { background: #082A59; padding: 8px 18px; border-radius: 12px; }
 .bibi { position: absolute; }
 .gel { position: absolute; background: #FBF7EC; color: #082A59; border-radius: 36px 36px 36px 8px; padding: 26px 32px; font-size: 40px; font-weight: 600; line-height: 1.25; box-shadow: 0 16px 40px rgba(0,0,0,.25); }
 .gel b { font-weight: 800; display: block; font-size: 50px; }
 .pilihan { position: absolute; left: 90px; right: 90px; height: 240px; border-radius: 40px; display: flex; align-items: center; gap: 30px; padding: 0 50px; font-weight: 800; font-size: 64px; }
 .pilihan .cek { width: 96px; height: 96px; border-radius: 50%; display: grid; place-items: center; font-size: 60px; flex: none; }
-.catatan-besar { position: absolute; left: 70px; right: 70px; top: 760px; background: #FBF7EC; border: 10px solid #E5B527; border-radius: 48px; padding: 60px 56px; color: #082A59; font-weight: 800; font-size: 74px; line-height: 1.15; text-align: center; box-shadow: 0 30px 70px rgba(0,0,0,.35); }
+.catatan-besar { position: absolute; left: 70px; right: 70px; top: 760px; background: #FBF7EC; border: 10px solid #082A59; border-radius: 48px; padding: 60px 56px; color: #082A59; font-weight: 800; font-size: 74px; line-height: 1.15; text-align: center; box-shadow: 0 30px 70px rgba(0,0,0,.35); }
 .konfeti i { position: absolute; width: 26px; height: 30px; clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); }
 </style></head>
 <body><div id="stage">
@@ -55,7 +55,7 @@ html, body { width: 1080px; height: 1920px; overflow: hidden; background: #082A5
   <symbol id="hex" viewBox="0 0 100 100"><polygon points="50,2 92,26 92,74 50,98 8,74 8,26" fill="none" stroke="#082A59" stroke-width="6"/><polygon points="50,22 75,36 75,64 50,78 25,64 25,36" fill="#082A59"/></symbol>
 </defs></svg>
 <div id="kamera"></div>
-<div id="pita" style="position:absolute;left:0;right:0;top:0;height:640px;background:linear-gradient(#082A59 55%, rgba(8,42,89,0));pointer-events:none"></div><div id="atas"></div>
+<div id="pita" style="position:absolute;left:0;right:0;top:0;height:640px;background:linear-gradient(#E5B527 55%, rgba(229,181,39,0));pointer-events:none"></div><div id="atas"></div>
 </div>
 <script>
 const FOKUS = __FOKUS__;
@@ -78,7 +78,8 @@ function bibi(x, y, size, t, opsi = {}) {
     : `<path d="M91 66 Q100 70 102 78" stroke="#082A59" stroke-width="3.5" fill="none" stroke-linecap="round"/>`;
   const mulut = opsi.bingung ? '<path d="M53 69 Q57 66 61 69 Q65 72 68 69" stroke="#082A59" stroke-width="3" fill="none" stroke-linecap="round"/>' : '<path d="M52 66 Q60 73 68 66" stroke="#082A59" stroke-width="3" fill="none" stroke-linecap="round"/>';
   const tanya = opsi.bingung ? `<text x="98" y="${26 + Math.sin(t * 4) * 3}" font-family="P" font-weight="800" font-size="24" fill="#E5B527" stroke="#082A59" stroke-width="1.5">?</text><text x="8" y="${30 + Math.cos(t * 4) * 3}" font-family="P" font-weight="800" font-size="18" fill="#FBF7EC">?</text>` : '';
-  return `<svg class="bibi" viewBox="0 0 120 120" style="left:${x}px;top:${y + bob}px;width:${size}px;height:${size}px;transform:rotate(${rot}deg)">
+  const lingkar = `<div style="position:absolute;left:${x + size * .1}px;top:${y + size * .16}px;width:${size * .8}px;height:${size * .8}px;border-radius:50%;background:#FBF7EC;box-shadow:0 18px 40px rgba(8,42,89,.25)"></div>`;
+  return lingkar + `<svg class="bibi" viewBox="0 0 120 120" style="left:${x}px;top:${y + bob}px;width:${size}px;height:${size}px;transform:rotate(${rot}deg)">
     <use href="#badan"/>
     <g transform="translate(36 40) scale(1 ${kepak}) translate(-36 -40)"><ellipse cx="36" cy="40" rx="17" ry="11" transform="rotate(-28 36 40)" fill="#FBF7EC" fill-opacity=".85" stroke="#082A59" stroke-width="2.5"/></g>
     <g transform="translate(84 40) scale(1 ${kepak}) translate(-84 -40)"><ellipse cx="84" cy="40" rx="17" ry="11" transform="rotate(28 84 40)" fill="#FBF7EC" fill-opacity=".85" stroke="#082A59" stroke-width="2.5"/></g>
@@ -108,7 +109,7 @@ const ADEGAN = [
       hp('beranda'), atas: (t) => judul('Cek <span class="k">estimasi nilai</span><br>perhiasanmu dulu', t, 4.1, 150, 70) + `<div class="sub" style="top:${355}px;opacity:${muncul(t, 5.6)}">sebelum pergi ke toko</div>` + contoh('Tampilan situs BB GOLD · angka contoh, harga berubah setiap hari') },
   { a: 9.0, b: 14.99, kam: [[9.0, 1, 540, 960], [14.99, 1.06, 540, 960]], isi: (t) => {
       const pilih = t > 11.4 && t < 13.3 ? 0 : t >= 13.3 ? 1 : -1;
-      const kartu = (y, teks, aktif, a) => `<div class="pilihan" style="top:${y + (1 - muncul(t, a)) * 60}px;opacity:${muncul(t, a)};background:${aktif ? '#E5B527' : '#0E3A73'};color:${aktif ? '#082A59' : '#FBF7EC'};transform:scale(${aktif ? 1.04 : 1})"><div class="cek" style="background:${aktif ? '#082A59' : 'rgba(251,247,236,.15)'};color:#E5B527">${aktif ? '✓' : ''}</div>${teks}</div>`;
+      const kartu = (y, teks, aktif, a) => `<div class="pilihan" style="top:${y + (1 - muncul(t, a)) * 60}px;opacity:${muncul(t, a)};background:${aktif ? '#082A59' : '#FBF7EC'};color:${aktif ? '#FBF7EC' : '#082A59'};transform:scale(${aktif ? 1.04 : 1})"><div class="cek" style="background:${aktif ? '#E5B527' : 'rgba(8,42,89,.12)'};color:#082A59">${aktif ? '✓' : ''}</div>${teks}</div>`;
       return kartu(760, 'Jual hari ini?', pilih === 0, 11.0) + kartu(1050, 'Belum perlu?', pilih === 1, 12.2) + bibi(720, 1360, 260, t, { fase: 1 });
     }, atas: (t) => judul('Kamu yang <span class="k">memutuskan</span>', t, 9.05, 300, 80) },
   { a: 14.99, b: 19.25, kam: [[14.99, 1.08, 540, 960], [19.25, 1, 540, 960]], isi: (t) =>
@@ -116,13 +117,13 @@ const ADEGAN = [
       `<div class="gel" style="left:520px;top:${470 + (1 - muncul(t, 15.1)) * 30}px;opacity:${muncul(t, 15.1)};width:500px"><b>Hai, aku Bibi!</b>dari BB GOLD Purwakarta</div>` +
       `<div class="judul" style="top:1220px;font-size:84px;opacity:${muncul(t, 17.8)}">Caranya <span class="k">gampang!</span></div>` },
   { a: 19.25, b: 22.62, kam: [[19.25, 1, ...C], [20.2, 1, ...C], [21.4, 1.7, ...fk('cta_tombol')], [22.62, 1.7, ...fk('cta_tombol')]], isi: (t) =>
-      hp('beranda_cta'), atas: (t) => judul('Buka website <span class="k">BB GOLD</span>', t, 19.3, 170, 70) + `<div class="sub" style="top:330px;opacity:${muncul(t, 19.6)}"><span class="pil" style="font-size:34px">tokobbgold.dwabussines.com</span></div>` + `<div class="sub" style="top:440px;opacity:${muncul(t, 20.6)}">tekan <b style="color:#E5B527">Hitung estimasi</b></div>` },
+      hp('beranda_cta'), atas: (t) => judul('Buka website <span class="k">BB GOLD</span>', t, 19.3, 170, 70) + `<div class="sub" style="top:330px;opacity:${muncul(t, 19.6)}"><span class="pil" style="font-size:34px">tokobbgold.dwabussines.com</span></div>` + `<div class="sub" style="top:440px;opacity:${muncul(t, 20.6)}">tekan <b style="background:#FBF7EC;padding:0 .2em;border-radius:.2em">Hitung estimasi</b></div>` },
   { a: 22.62, b: 25.24, kam: [[22.62, 1.15, ...C], [23.6, 1.75, ...fk('kode_chip')], [25.24, 1.75, ...fk('kode_chip')]], isi: (t) =>
       hp('kode'), atas: (t) => judul('<span class="k">1.</span> Pilih kode perhiasan', t, 22.65, 200, 68) },
   { a: 25.24, b: 27.64, kam: [[25.24, 1.2, ...C], [26.1, 1.75, ...fk('cap_pilihan')], [27.64, 1.75, ...fk('cap_pilihan')]], isi: (t) =>
       hp('cap'), atas: (t) => judul('<span class="k">2.</span> Ada cap pabrik?', t, 25.27, 200, 68) },
   { a: 27.64, b: 34.1, kam: [[27.64, 1.2, ...C], [28.4, 1.75, ...fk('berat_isian')], [29.6, 1.75, ...fk('berat_isian')], [30.6, 1.6, ...fk('berat_ket')], [33.3, 1.6, ...fk('berat_ket')], [34.1, 1.15, ...C]], isi: (t) =>
-      hp('berat'), atas: (t) => judul('<span class="k">3.</span> Masukkan berat', t, 27.67, 200, 68) + `<div class="sub" style="top:330px;opacity:${muncul(t, 29.7)}">yang dihitung <b style="color:#E5B527">berat emasnya saja</b></div>` },
+      hp('berat'), atas: (t) => judul('<span class="k">3.</span> Masukkan berat', t, 27.67, 200, 68) + `<div class="sub" style="top:330px;opacity:${muncul(t, 29.7)}">yang dihitung <b style="background:#FBF7EC;padding:0 .2em;border-radius:.2em">berat emasnya saja</b></div>` },
   { a: 34.1, b: 35.64, kam: [[34.1, 1.15, ...C], [35.64, 1.3, ...fk('kontak_form')]], isi: (t) =>
       hp('kontak'), atas: (t) => judul('Isi nama &amp; <span class="k">WhatsApp</span>', t, 34.12, 200, 68) },
   { a: 35.64, b: 38.58, kam: [[35.64, 1.1, ...C], [36.4, 1.6, ...fk('hasil_angka')], [38.58, 1.65, ...fk('hasil_angka')]], isi: (t) =>
@@ -137,13 +138,13 @@ const ADEGAN = [
       `<div class="sub" style="top:1480px;opacity:${muncul(t, 48.0)};font-size:36px">Buka setiap hari 09.00 - 17.00 WIB<br>Purwakarta</div>`,
       atas: (t) => `<div class="judul" style="top:300px;font-size:${110}px;opacity:${muncul(t, 47.56, .25)};transform:scale(${.85 + .15 * muncul(t, 47.56)})">LINK <span class="k">DI BIO</span></div>` +
         `<div class="sub" style="top:470px;opacity:${muncul(t, 47.9)}"><span class="pil" style="font-size:34px">tokobbgold.dwabussines.com</span></div>` +
-        `<div class="sub" style="top:620px;opacity:${muncul(t, 48.95)};font-size:46px;font-weight:700">Jual dan beli <span style="color:#E5B527">transparan</span>,<br>gak bikin kamu penasaran!</div>` +
-        `<div class="sub" style="top:1640px;opacity:${muncul(t, 49.5)};font-size:26px;color:rgba(251,247,236,.6);letter-spacing:.14em">PT DRAJAT WIGUNA ADIDAYA</div>` },
+        `<div class="sub" style="top:620px;opacity:${muncul(t, 48.95)};font-size:46px;font-weight:700">Jual dan beli <span style="background:#FBF7EC;padding:0 .2em;border-radius:.2em">transparan</span>,<br>gak bikin kamu penasaran!</div>` +
+        `<div class="sub" style="top:1640px;opacity:${muncul(t, 49.5)};font-size:26px;color:rgba(8,42,89,.75);letter-spacing:.14em">PT DRAJAT WIGUNA ADIDAYA</div>` },
 ];
 
 function konfeti(dt) {
   if (dt < 0 || dt > 2.4) return '';
-  const warna = ['#E5B527', '#F6DC7A', '#FBF7EC', '#C99712'];
+  const warna = ['#082A59', '#21509A', '#FBF7EC', '#082A59'];
   let h = '<div class="konfeti" style="position:absolute;inset:0;pointer-events:none">';
   for (let i = 0; i < 40; i++) {
     const r = (n) => { const x = Math.sin(i * 12.9898 + n * 78.233) * 43758.5453; return x - Math.floor(x); };
