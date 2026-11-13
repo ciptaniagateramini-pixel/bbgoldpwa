@@ -1,0 +1,9 @@
+# Folder lib tidak boleh diakses langsung
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^lib/ - [F,L]
+</IfModule>
+<FilesMatch "\.(json|log|lock|tmp|md)$">
+  Require all denied
+</FilesMatch>
+Options -Indexes

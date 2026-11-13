@@ -1,0 +1,39 @@
+@import '@fontsource/poppins/300.css';
+@import '@fontsource/poppins/400.css';
+@import '@fontsource/poppins/500.css';
+@import '@fontsource/poppins/600.css';
+@import '@fontsource/poppins/700.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html { -webkit-text-size-adjust: 100%; }
+body { font-family: Poppins, system-ui, sans-serif; background: #082A59; color: #FBF7EC; }
+
+@layer components {
+  .kartu { @apply rounded-2xl bg-krem text-biru shadow-sm; }
+  .tombol { @apply inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl px-5 font-semibold transition focus:outline-none focus-visible:ring-4 focus-visible:ring-mustard-muda; }
+  .tombol-mustard { @apply tombol bg-mustard text-biru hover:bg-mustard-muda; }
+  .tombol-garis { @apply tombol border-2 border-krem/70 text-krem hover:bg-white/10; }
+  .tombol-biru { @apply tombol bg-biru text-krem hover:bg-biru-2; }
+  .chip { @apply min-h-[48px] rounded-xl border-2 border-biru/20 bg-white px-3 py-2 text-sm font-semibold text-biru transition; }
+  .chip[aria-pressed='true'] { @apply border-biru bg-biru text-krem; }
+  .judul-blok { @apply text-lg font-semibold text-krem; }
+  .isian { @apply w-full min-h-[48px] rounded-xl border-2 border-biru/25 bg-white px-4 text-base text-biru outline-none focus:border-biru; }
+}
+
+.pola-sarang {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='97' viewBox='0 0 56 97'%3E%3Cpath d='M28 0l28 16v32L28 64 0 48V16zM28 64l28 16v17M28 64L0 80v17' fill='none' stroke='%23E5B527' stroke-opacity='.13' stroke-width='1.2'/%3E%3C/svg%3E");
+  background-size: 56px 97px;
+  -webkit-mask-image: radial-gradient(circle at 100% 0, #000 0, transparent 70%);
+  mask-image: radial-gradient(circle at 100% 0, #000 0, transparent 70%);
+}
+
+.watermark {
+  pointer-events: none;
+  position: absolute; inset: 0; overflow: hidden;
+  display: flex; flex-wrap: wrap; align-content: center; justify-content: center; gap: 1.5rem 2.5rem;
+  transform: rotate(-24deg) scale(1.4);
+  color: rgba(8, 42, 89, 0.07); font-weight: 700; font-size: 1.05rem; letter-spacing: .18em; white-space: nowrap;
+  user-select: none;
+}

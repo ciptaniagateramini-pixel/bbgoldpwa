@@ -1,0 +1,15 @@
+{
+  "name": "bbgold-pwa",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --config web/vite.config.ts",
+    "build": "tsc -p web/tsconfig.json --noEmit && vite build --config web/vite.config.ts && node scripts/build-sw.mjs",
+    "test": "vitest run --config web/vite.config.ts && php tests/php/run.php",
+    "test:unit": "vitest run --config web/vite.config.ts",
+    "test:php": "php tests/php/run.php",
+    "test:e2e": "node tests/e2e/run.mjs",
+    "serve:local": "bash scripts/serve-local.sh"
+  }
+}

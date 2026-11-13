@@ -1,0 +1,7 @@
+{
+  "zonaWaktu": "Asia/Jakarta",
+  "jamBuka": "09:00",
+  "jamTutup": "17:00",
+  "_petunjuk": "Tambahkan tanggal tutup khusus dengan format {\"tanggal\": \"2026-12-25\", \"keterangan\": \"Libur Natal\"}",
+  "tutupKhusus": []
+}
