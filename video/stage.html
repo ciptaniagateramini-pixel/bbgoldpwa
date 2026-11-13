@@ -114,7 +114,7 @@ const ADEGAN = [
   { a: 0, b: 4.05, kam: [[0, 1, 540, 960], [4.05, 1.1, 540, 960]], isi: (t) =>
       `<div class="judul" style="top:620px;font-size:${100}px;opacity:1;transform:scale(${1.06 - .06 * muncul(t, 0, .4)})">RAGU <span class="k">JUAL EMAS,</span></div>` +
       `<div class="judul" style="top:880px;font-size:72px;opacity:${muncul(t, 2.0, .3)}">KARENA NILAINYA<br><span class="k">BELUM TAHU?</span></div>` +
-      maskot('06_berpikir', 350, 1130, 470, t, { tanya: true, a: .2 }) },
+      maskot('06_berpikir', 350, 1130, 470, t, { tanya: true }) },
   { a: 4.05, b: 9.0, kam: [[4.05, 1, ...C], [5.4, 1, ...C], [6.6, 1.55, ...fk('beranda_kartu')], [8.1, 1.55, ...fk('beranda_kartu')], [9.0, 1.1, ...C]], isi: (t) =>
       hp('beranda'), atas: (t) => judul('Cek <span class="k">estimasi nilai</span><br>perhiasanmu dulu', t, 4.1, 150, 70) + `<div class="sub" style="top:${355}px;opacity:${muncul(t, 5.6)}">sebelum pergi ke toko</div>` + contoh('Tampilan situs BB GOLD · angka contoh, harga berubah setiap hari') },
   { a: 9.0, b: 14.99, kam: [[9.0, 1, 540, 960], [14.99, 1.06, 540, 960]], isi: (t) => {
@@ -137,12 +137,12 @@ const ADEGAN = [
   { a: 34.1, b: 35.64, kam: [[34.1, 1.15, ...C], [35.64, 1.3, ...fk('kontak_form')]], isi: (t) =>
       hp('kontak'), atas: (t) => judul('Isi nama &amp; <span class="k">WhatsApp</span>', t, 34.12, 200, 68) },
   { a: 35.64, b: 38.58, kam: [[35.64, 1.1, ...C], [36.4, 1.6, ...fk('hasil_angka')], [38.58, 1.65, ...fk('hasil_angka')]], isi: (t) =>
-      hp('hasil') + konfeti(t - 35.7), atas: (t) => maskot('13_semangat', 720, 1380, 330, t, { a: 36.0 }) + judul('<span class="k">Tadaa!</span> Estimasi<br>langsung muncul', t, 35.7, 170, 68) + contoh('Angka contoh · harga berubah setiap hari') },
+      hp('hasil') + konfeti(t - 35.7), atas: (t) => judul('<span class="k">Tadaa!</span> Estimasi<br>langsung muncul', t, 35.7, 170, 68) + contoh('Angka contoh · harga berubah setiap hari') },
   { a: 38.58, b: 43.32, kam: [[38.58, 1, 540, 960], [43.32, 1.08, 540, 960]], isi: (t) =>
       `<div class="catatan-besar" style="opacity:${muncul(t, 38.62)};transform:scale(${.9 + .1 * muncul(t, 38.62, .5)})"><svg viewBox="0 0 100 100" style="width:120px;height:120px;display:block;margin:0 auto 30px"><use href="#hex"/></svg>PERHIASAN RUSAK, PATAH, SURAT HILANG TIDAK ADA POTONGAN.</div>`,
       atas: (t) => judul('<span class="k">Ingat!</span>', t, 38.6, 420, 96) },
   { a: 43.32, b: 47.54, kam: [[43.32, 1.1, ...C], [44.3, 1.55, ...fk('hasil_ket')], [47.54, 1.55, ...fk('hasil_ket')]], isi: (t) =>
-      hp('hasil2'), atas: (t) => maskot('09_periksa', 740, 1360, 320, t, { a: 44.6 }) + judul('Ini <span class="k">estimasi</span> ya', t, 43.35, 170, 74) + `<div class="sub" style="top:290px;opacity:${muncul(t, 44.6)}">Hasil akhir setelah<br>dicek di toko</div>` },
+      hp('hasil2'), atas: (t) => maskot('09_periksa', 800, 1560, 250, t, { a: 44.6 }) + judul('Ini <span class="k">estimasi</span> ya', t, 43.35, 170, 74) + `<div class="sub" style="top:290px;opacity:${muncul(t, 44.6)}">Hasil akhir setelah<br>dicek di toko</div>` },
   { a: 47.54, b: 53.2, kam: [[47.54, 1.1, 540, 960], [53.2, 1, 540, 960]], isi: (t) =>
       maskot('03_hp', 310, 920, 500, t, { a: 47.7 }) +
       `<div class="sub" style="top:1480px;opacity:${muncul(t, 48.0)};font-size:36px">Buka setiap hari 09.00 - 17.00 WIB<br>Purwakarta</div>`,
@@ -172,7 +172,7 @@ window.render = function (t) {
   const kam = document.getElementById('kamera');
   kam.style.transform = `translate(540px, 960px) scale(${s}) translate(${-fx}px, ${-fy}px)`;
   // transisi masuk: kilat singkat 0.12 dtk
-  const masuk = clamp((t - ad.a) / .14);
+  const masuk = ad.a === 0 ? 1 : clamp((t - ad.a) / .14);
   kam.innerHTML = `<div style="position:absolute;inset:0;opacity:${masuk}">${ad.isi(t)}</div>`;
   document.getElementById('atas').innerHTML = ad.atas ? ad.atas(t) : '';
   document.getElementById('pita').style.opacity = ad.atas && ad.isi(0).includes('class="hp"') ? 1 : 0;
