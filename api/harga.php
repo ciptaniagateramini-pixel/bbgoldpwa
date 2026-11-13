@@ -25,7 +25,7 @@ $segar = $cache && (time() - (int) ($cache['_t'] ?? 0)) < $ttl && ($cache['_hari
 
 if (!$segar) {
     $url = (string) ($cfg['harga_exec_url'] ?? '');
-    $raw = $url !== '' ? bb_http($referensi ? $url . (str_contains($url, '?') ? '&' : '?') . 'data=referensi' : $url) : null;
+    $raw = $url !== '' ? bb_http($referensi ? $url . (strpos($url, '?') !== false ? '&' : '?') . 'data=referensi' : $url) : null;
     $dto = $raw === null ? null : ($referensi ? bb_dto_referensi($raw, $hariIni) : bb_dto_harga($raw));
     if ($dto !== null) {
         $cache = ['_t' => time(), '_hari' => $hariIni, 'data' => $dto];

@@ -119,10 +119,10 @@ function bb_dto_referensi($raw, string $hariIni): ?array
 function bb_normalisasi_wa(string $in): ?string
 {
     $d = preg_replace('/[\s\-().]/', '', $in) ?? '';
-    if (str_starts_with($d, '+')) $d = substr($d, 1);
+    if (strncmp($d, '+', 1) === 0) $d = substr($d, 1);
     if (!ctype_digit($d)) return null;
-    if (str_starts_with($d, '62')) $d = substr($d, 2);
-    elseif (str_starts_with($d, '0')) $d = substr($d, 1);
+    if (strncmp($d, '62', 2) === 0) $d = substr($d, 2);
+    elseif (strncmp($d, '0', 1) === 0) $d = substr($d, 1);
     if (!preg_match('/^8[0-9]{7,12}$/', $d)) return null;
     return '+62' . $d;
 }

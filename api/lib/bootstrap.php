@@ -31,7 +31,7 @@ function bb_headers(): void
     header('X-Robots-Tag: noindex');
 }
 
-function bb_json(array $data, int $status = 200, string $cache = 'no-store'): never
+function bb_json(array $data, int $status = 200, string $cache = 'no-store'): void
 {
     http_response_code($status);
     bb_headers();
