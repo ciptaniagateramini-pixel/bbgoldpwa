@@ -85,3 +85,4 @@ body { font-family: Poppins, system-ui, sans-serif; background: #082A59; color: 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+.maskot.melayang { animation: melayang 3.2s ease-in-out infinite; transform-origin: 50% 90%; }

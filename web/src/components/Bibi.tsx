@@ -44,26 +44,25 @@ export function BibiDefs() {
   );
 }
 
-export function Bibi({ pose = 'diam', className = 'h-28 w-28', tunda = 0 }: { pose?: 'lambai' | 'diam'; className?: string; tunda?: number }) {
+export type Pose = 'menyapa' | 'jempol' | 'hp' | 'checklist' | 'berpikir' | 'menjelaskan' | 'periksa' | 'semangat';
+
+/** Maskot resmi BB GOLD (pose dari folder "Maskot BB GOLD - Pose Individual"). */
+export function Bibi({ pose = 'menjelaskan', className = 'h-28 w-28', tunda = 0 }: { pose?: Pose; className?: string; tunda?: number }) {
   return (
-    <svg viewBox="0 0 120 120" className={`bibi melayang ${className}`} style={{ animationDelay: `${tunda}s` }} aria-hidden="true">
-      <use href="#bibi" />
-      {pose === 'lambai' ? (
-        <g className="tangan-lambai"><use href="#tangan-lambai" /></g>
-      ) : (
-        <use href="#tangan-bawah" />
-      )}
-    </svg>
+    <div className={`relative grid shrink-0 place-items-end justify-center ${className}`} aria-hidden="true">
+      <span className="absolute inset-x-[8%] bottom-[4%] top-[18%] rounded-full bg-krem/95 shadow-[0_8px_20px_rgba(0,0,0,.18)]" />
+      <img src={`/maskot/${pose}.webp`} alt="" className="maskot melayang relative h-full w-auto object-contain" style={{ animationDelay: `${tunda}s` }} draggable={false} />
+    </div>
   );
 }
 
-/** Bibi dengan gelembung bicara. */
-export function BibiBicara({ judul, children, pose = 'diam', besar = false, judulTag = 'p' }: { judul: string; children?: React.ReactNode; pose?: 'lambai' | 'diam'; besar?: boolean; judulTag?: 'p' | 'h1' | 'h2' }) {
+/** Maskot dengan gelembung bicara. */
+export function BibiBicara({ judul, children, pose = 'menjelaskan', besar = false, judulTag = 'p' }: { judul: string; children?: React.ReactNode; pose?: Pose; besar?: boolean; judulTag?: 'p' | 'h1' | 'h2' }) {
   const J = judulTag;
   return (
     <div className={`grid items-end gap-1.5 ${besar ? 'grid-cols-[112px_1fr]' : 'grid-cols-[84px_1fr]'}`}>
       <Bibi pose={pose} className={besar ? 'h-28 w-28' : 'h-[84px] w-[84px]'} />
-      <div className="gelembung mb-6">
+      <div className="gelembung mb-4">
         <J className="m-0 text-base font-bold leading-snug">{judul}</J>
         {children && <div className="mt-0.5 text-[13px] leading-snug text-abu-biru">{children}</div>}
       </div>

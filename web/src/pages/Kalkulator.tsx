@@ -199,7 +199,7 @@ export function Kalkulator() {
     return (
       <div className="space-y-5">
         <h1 className="text-xl font-bold">Kalkulator estimasi buyback perhiasan</h1>
-        <BibiBicara judul="Harga hari ini belum ditetapkan" pose="diam">Kalkulator aktif kembali setelah harga hari ini ditetapkan.</BibiBicara>
+        <BibiBicara judul="Harga hari ini belum ditetapkan" pose="berpikir">Kalkulator aktif kembali setelah harga hari ini ditetapkan.</BibiBicara>
         <div role="alert" data-testid="kalkulator-nonaktif" className="rounded-2xl border-2 border-mustard bg-biru-2 px-4 py-4">
           <p className="text-sm text-krem/85">Sambil menunggu, kamu bisa menanyakan harga lewat WhatsApp toko.</p>
           <a href={waLink('Halo BB GOLD, saya mau tanya harga buyback perhiasan hari ini.')} target="_blank" rel="noopener" className="tombol-mustard mt-3"><IkonWa /> Tanya lewat WhatsApp</a>
@@ -226,7 +226,7 @@ export function Kalkulator() {
       <div key={layar} className={`layar-kuis mt-3 ${mundur ? 'mundur' : ''}`}>
         {layar === 'kode' && (
           <div className="space-y-4">
-            <BibiBicara judul="Ada angka kode di perhiasanmu?" pose="lambai" judulTag="h2">
+            <BibiBicara judul="Ada angka kode di perhiasanmu?" pose="periksa" judulTag="h2">
               Cek bagian dalam cincin, belakang liontin, atau dekat kait kalung. Ada angka kodenya?
             </BibiBicara>
             <div className="grid grid-cols-3 gap-2" role="group" aria-label="Pilih kode">
@@ -242,7 +242,7 @@ export function Kalkulator() {
           <div className="space-y-4">
             {q2.tipe === 'cap' && (
               <>
-                <BibiBicara judul="Ada cap pabrik?" judulTag="h2">
+                <BibiBicara judul="Ada cap pabrik?" pose="berpikir" judulTag="h2">
                   Cap pabrik adalah tanda merek pabrik yang tercetak di perhiasan, misalnya {contohCap.join(', ')}, dan lainnya.
                 </BibiBicara>
                 <div className="grid grid-cols-2 gap-2">
@@ -253,7 +253,7 @@ export function Kalkulator() {
             )}
             {q2.tipe !== 'cap' && (
               <>
-                <BibiBicara judul={q2.tipe === 'warna' ? 'Warna emasnya apa?' : 'Pilih jenisnya'} judulTag="h2">Pilih yang paling mirip.</BibiBicara>
+                <BibiBicara judul={q2.tipe === 'warna' ? 'Warna emasnya apa?' : 'Pilih jenisnya'} pose="berpikir" judulTag="h2">Pilih yang paling mirip.</BibiBicara>
                 <div className="grid grid-cols-2 gap-2">
                   {q2.pilihan.map((p) => (
                     <button key={p} type="button" className="chip-kuis" aria-pressed={jenis === p} onClick={() => pilihJenis(p)}>{q2.tipe === 'warna' ? `Emas ${p.toLowerCase()}` : p}</button>
@@ -266,7 +266,7 @@ export function Kalkulator() {
 
         {layar === 'berat' && (
           <div className="space-y-3">
-            <BibiBicara judul="Berapa beratnya?" judulTag="h2">
+            <BibiBicara judul="Berapa beratnya?" pose="checklist" judulTag="h2">
               {kadar === POLOS ? KETERANGAN_POLOS : `${kadar ? labelKadar(kadar) : ''}${jenisTampil() && jenisTampil() !== '-' ? ' · ' + jenisTampil() : ''}`}
             </BibiBicara>
             <label htmlFor="berat" className="block text-[13px] font-semibold text-krem/75">Berat perhiasan (gram)</label>
@@ -283,7 +283,7 @@ export function Kalkulator() {
 
         {layar === 'kontak' && (
           <form onSubmit={kirim} noValidate className="space-y-3" data-testid="form-kontak">
-            <BibiBicara judul="Satu langkah lagi!" judulTag="h2">Isi kontakmu supaya toko bisa bantu cek estimasi ini lewat WhatsApp.</BibiBicara>
+            <BibiBicara judul="Satu langkah lagi!" pose="jempol" judulTag="h2">Isi kontakmu supaya toko bisa bantu cek estimasi ini lewat WhatsApp.</BibiBicara>
             <div>
               <label htmlFor="nama" className="mb-1 block text-[13px] font-semibold text-krem/75">Nama</label>
               <input id="nama" autoComplete="name" className="isian-kuis" value={nama} onChange={(e) => setNama(e.target.value)} aria-invalid={!!salah.nama} required />
@@ -323,7 +323,7 @@ function KartuHasil({ h, info, onUlang, bisaUlang }: { h: RingkasanHasil; info: 
   const tgl = tanggalSaja(h.ditetapkanPada);
   return (
     <section className="space-y-4" aria-labelledby="judul-hasil" data-testid="hasil">
-      <BibiBicara judul="Ini estimasinya!" pose="lambai">Bawa perhiasanmu ke toko untuk dicek langsung.</BibiBicara>
+      <BibiBicara judul="Ini estimasinya!" pose="semangat">Bawa perhiasanmu ke toko untuk dicek langsung.</BibiBicara>
       {info && <p role="status" className="rounded-xl bg-biru-2 px-4 py-2 text-sm text-mustard-muda">{info}</p>}
       <div className="kartu relative overflow-hidden rounded-3xl p-5" data-testid="kartu-hasil">
         <div className="watermark" aria-hidden="true">
