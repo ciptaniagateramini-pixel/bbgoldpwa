@@ -5,3 +5,12 @@ dist/
 private/
 config.php
 release/
+# video: aset merek, suara, tangkapan layar & hasil render tidak diunggah ke repo publik
+video/narasi.mp3
+video/aset/
+video/cap/
+video/preview/
+video/frames/
+video/_stage.html
+video/*.png
+video/*.mp4
