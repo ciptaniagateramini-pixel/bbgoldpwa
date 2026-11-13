@@ -2,7 +2,8 @@
  * BB GOLD – Skrip 2 (menempel di Sheet "BB GOLD - Leads")
  *
  * Hanya menerima POST JSON dari api/lead.php yang membawa token rahasia.
- * Token disimpan di Project Settings > Script properties dengan nama TOKEN.
+ * Token disimpan di Script properties (TOKEN). Dipasang otomatis sekali oleh server
+ * (aksi "pasang_token") saat TOKEN masih kosong; setelah itu tidak bisa diganti lewat POST.
  * Skrip ini tidak membaca Sheet harga dan tidak pernah mengembalikan isi Sheet.
  *
  * Kolom tab "Leads" (baris 1 header, urutan tetap):
@@ -19,7 +20,22 @@ var STATUS = ['Baru', 'Dihubungi', 'Datang ke toko', 'Transaksi', 'Tidak lanjut'
 function doPost(e) {
   try {
     var body = JSON.parse((e && e.postData && e.postData.contents) || '{}');
-    var token = PropertiesService.getScriptProperties().getProperty('TOKEN');
+    var props = PropertiesService.getScriptProperties();
+    var token = props.getProperty('TOKEN');
+    // Pemasangan token sekali saja: hanya bila TOKEN belum ada. Setelah terpasang, tidak bisa diganti lewat POST.
+    if (!token && body.aksi === 'pasang_token') {
+      var baru = String(body.token || '');
+      if (!/^[a-f0-9]{64}$/.test(baru)) return json_({ ok: false, error: 'token_tidak_valid' });
+      var kunci = LockService.getScriptLock();
+      kunci.waitLock(10000);
+      try {
+        if (props.getProperty('TOKEN')) return json_({ ok: false, error: 'sudah_terpasang' });
+        props.setProperty('TOKEN', baru);
+      } finally {
+        kunci.releaseLock();
+      }
+      return json_({ ok: true, terpasang: true });
+    }
     if (!token || token.length < 32 || !samaAman_(String(body.token || ''), token)) {
       return json_({ ok: false, error: 'tidak_diizinkan' });
     }
@@ -116,7 +132,7 @@ function siapkanSheetLeads() {
   sh.getRange(2, 12, max, 1).setDataValidation(status);
 }
 
-/** Jalankan SEKALI untuk membuat token acak (lalu salin ke config.php di Hostinger). */
+/** CADANGAN SAJA, jangan dijalankan bila token sudah dipasang otomatis (akan mengganti token). */
 function buatToken() {
   var t = Utilities.getUuid().replace(/-/g, '') + Utilities.getUuid().replace(/-/g, '');
   PropertiesService.getScriptProperties().setProperty('TOKEN', t);
