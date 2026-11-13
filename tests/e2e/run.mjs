@@ -64,7 +64,7 @@ try {
   const ctx = await browser.newContext({ ...devices['Pixel 7'] });
   const page = await ctx.newPage();
   await page.goto(BASE + '/?s=instagram');
-  await page.waitForSelector('[data-testid=tabel-harga]');
+  await page.waitForSelector('[data-testid=tabel-harga]', { state: 'attached' });
   cek('tabel berlaku', (await page.getAttribute('[data-testid=tabel-harga]', 'data-berlaku')) === 'ya');
   cek('tanpa banner basi', (await page.locator('[data-testid=banner-basi]').count()) === 0);
   cek('catatan wajib di beranda', (await page.locator('[data-testid=catatan-wajib]').first().innerText()).trim() === 'PERHIASAN RUSAK, PATAH, SURAT HILANG TIDAK ADA POTONGAN.');
@@ -144,9 +144,9 @@ try {
 
   // ---------- 6. Kadar satu jenis: langkah 2 dilewati ----------
   await page.getByRole('button', { name: 'Hitung perhiasan lain' }).click();
-  await page.getByRole('button', { name: 'KODE 375' }).click();
-  cek('375 lewati langkah 2', (await page.getByRole('heading', { name: 'Ada cap pabrik?' }).count()) === 0);
   cek('chip karat/persen apa adanya', await page.getByRole('button', { name: '14K', exact: true }).isVisible() && await page.getByRole('button', { name: '80%', exact: true }).isVisible());
+  await page.getByRole('button', { name: 'KODE 375' }).click();
+  cek('375 lewati langkah 2', (await page.getByRole('heading', { name: 'Ada cap pabrik?' }).count()) === 0 && await page.locator('#berat').isVisible());
   await ctx.close();
 
   // ---------- 7. Polos: rentang Lokal + perlu uji kadar ----------
@@ -230,6 +230,7 @@ try {
   await p6.goto(BASE + '/toko');
   const t = await p6.innerText('main');
   cek('toko: jam', t.includes('Buka setiap hari, 09.00 - 17.00 WIB'));
+  cek('footer PT', (await p6.innerText('[data-testid=footer-pt]')).includes('PT DRAJAT WIGUNA ADIDAYA'));
   cek('toko: catatan DWA', t.includes('profil Google Maps tercatat atas nama PT Drajat Wiguna Adidaya / DWA'));
   cek('toko: WA tampil', t.includes('0882-0001-19208'));
   cek('toko: email', t.includes('customerservice@dwabussines.com'));
@@ -244,15 +245,15 @@ try {
   const ctx5 = await browser.newContext({ ...devices['Pixel 7'] });
   const p5 = await ctx5.newPage();
   await p5.goto(BASE + '/');
-  await p5.waitForSelector('[data-testid=tabel-harga]');
+  await p5.waitForSelector('[data-testid=tabel-harga]', { state: 'attached' });
   await p5.evaluate(() => navigator.serviceWorker.ready);
   await p5.reload();
-  await p5.waitForSelector('[data-testid=tabel-harga]');
+  await p5.waitForSelector('[data-testid=tabel-harga]', { state: 'attached' });
   await ctx5.setOffline(true);
   stop(); // matikan server juga: setOffline tidak selalu berlaku untuk service worker
   await new Promise((r) => setTimeout(r, 500));
   await p5.reload();
-  await p5.waitForSelector('[data-testid=tabel-harga]', { timeout: 10000 });
+  await p5.waitForSelector('[data-testid=tabel-harga]', { state: 'attached', timeout: 10000 });
   cek('offline: harga tersimpan tampil', (await p5.locator('[data-testid=tabel-harga] tbody tr').count()) === 16);
   const dbg = await p5.evaluate(async () => { try { const r = await fetch('/api/harga.php'); return r.status + ' ' + r.headers.get('X-BB-Offline'); } catch (e) { return 'err ' + e; } });
   cek('offline: banner mode offline', await p5.getByText('Mode offline').isVisible(), dbg);
