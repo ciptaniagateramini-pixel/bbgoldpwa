@@ -18,6 +18,7 @@ body { font-family: Poppins, system-ui, sans-serif; background: #082A59; color: 
   .tombol-biru { @apply tombol bg-biru text-krem hover:bg-biru-2; }
   .chip { @apply min-h-[48px] rounded-xl border-2 border-biru/20 bg-white px-3 py-2 text-sm font-semibold text-biru transition; }
   .chip[aria-pressed='true'] { @apply border-biru bg-biru text-krem; }
+  .chip[aria-pressed='true']::before { content: '✓ '; color: #E5B527; }
   .judul-blok { @apply text-lg font-semibold text-krem; }
   .isian { @apply w-full min-h-[48px] rounded-xl border-2 border-biru/25 bg-white px-4 text-base text-biru outline-none focus:border-biru; }
 }

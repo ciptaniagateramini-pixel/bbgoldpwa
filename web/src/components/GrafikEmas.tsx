@@ -80,7 +80,7 @@ export function GrafikEmas({ siap }: { siap: boolean }) {
         ) : (
           <div ref={kotak} className="tradingview-widget-container h-full" data-testid="grafik-widget">
             <div className="tradingview-widget-container__widget h-[calc(100%-28px)]" />
-            <div className="tradingview-widget-copyright px-3 text-xs text-krem/70">
+            <div className="tradingview-widget-copyright px-3 text-[13px] leading-7 text-krem/70">
               <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank" className="underline">
                 Grafik oleh TradingView
               </a>

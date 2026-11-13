@@ -10,12 +10,12 @@ function Sumber({ nama, s, satuan }: { nama: string; s: SumberReferensi | null; 
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <h3 className="font-semibold">{nama}</h3>
         {s.basi ? (
-          <span className="rounded-full bg-abu-biru px-2 py-0.5 text-xs font-semibold text-krem">belum diperbarui</span>
+          <span className="rounded-full bg-abu-biru px-2 py-0.5 text-[13px] font-semibold text-krem">belum diperbarui</span>
         ) : (
-          <span className="rounded-full bg-mustard-muda px-2 py-0.5 text-xs font-semibold text-biru">hari ini</span>
+          <span className="rounded-full bg-mustard-muda px-2 py-0.5 text-[13px] font-semibold text-biru">hari ini</span>
         )}
       </div>
-      <p className="mt-0.5 text-xs text-abu-biru">Update: {s.keterangan || 'tidak diketahui'} · {satuan}</p>
+      <p className="mt-0.5 text-[13px] text-abu-biru">Update: {s.keterangan || 'tidak diketahui'} · {satuan}</p>
       {s.items.length > 0 ? (
         <ul className={`mt-3 grid grid-cols-2 gap-x-4 gap-y-1 text-sm ${s.basi ? 'opacity-60' : ''}`}>
           {s.items.map((it) => (

@@ -29,8 +29,14 @@ export function Toko() {
         </div>
         <div>
           <h2 className="text-sm font-semibold uppercase tracking-wider text-abu-biru">Kontak</h2>
-          <p className="mt-1">WhatsApp: <a className="font-semibold underline" href={`https://wa.me/${TOKO.waNomor}`} target="_blank" rel="noopener">{TOKO.waTampil}</a></p>
-          <p>Email: <a className="font-semibold underline" href={`mailto:${TOKO.email}`}>{TOKO.email}</a></p>
+          <a className="mt-2 flex min-h-[48px] items-center justify-between gap-3 rounded-xl border border-biru/15 bg-white px-4 py-2" href={`https://wa.me/${TOKO.waNomor}`} target="_blank" rel="noopener">
+            <span className="text-sm text-abu-biru">WhatsApp</span>
+            <span className="font-semibold">{TOKO.waTampil}</span>
+          </a>
+          <a className="mt-2 flex min-h-[48px] flex-wrap items-center justify-between gap-x-3 rounded-xl border border-biru/15 bg-white px-4 py-2" href={`mailto:${TOKO.email}`}>
+            <span className="text-sm text-abu-biru">Email</span>
+            <span className="break-all font-semibold">{TOKO.email}</span>
+          </a>
         </div>
       </div>
       <div className="grid gap-3 sm:grid-cols-2">

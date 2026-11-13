@@ -30,7 +30,7 @@ export function Layout() {
         </Link>
         <nav className="ml-auto hidden gap-1 sm:flex" aria-label="Menu utama">
           {menu.map((m) => (
-            <NavLink key={m.to} to={m.to} end className={({ isActive }) => `rounded-lg px-3 py-2 text-sm font-medium ${isActive ? 'bg-mustard text-biru' : 'text-krem/85 hover:bg-white/10'}`}>
+            <NavLink key={m.to} to={m.to} end className={({ isActive }) => `flex min-h-[44px] items-center rounded-lg px-3 text-sm font-medium ${isActive ? 'bg-mustard text-biru' : 'text-krem/85 hover:bg-white/10'}`}>
               {m.label}
             </NavLink>
           ))}
@@ -52,8 +52,8 @@ export function Layout() {
       <footer className="relative mx-auto mt-10 max-w-3xl px-4 text-sm text-krem/75">
         <p className="font-medium text-mustard-muda">“{SLOGAN}”</p>
         <p className="mt-2">{TOKO.alamat}</p>
-        <p className="mt-1">WhatsApp {TOKO.waTampil} · {TOKO.jamTampil}</p>
-        <p className="mt-3"><Link to="/privasi" className="underline">Kebijakan privasi</Link></p>
+        <p className="mt-1">WhatsApp <a href={`https://wa.me/${TOKO.waNomor}`} target="_blank" rel="noopener" className="inline-block py-2 underline">{TOKO.waTampil}</a> · {TOKO.jamTampil}</p>
+        <p className="mt-1"><Link to="/privasi" className="inline-flex min-h-[44px] items-center underline">Kebijakan privasi</Link></p>
       </footer>
 
       <nav aria-label="Menu bawah" className="fixed inset-x-0 bottom-0 z-20 border-t border-white/10 bg-biru/95 pb-[env(safe-area-inset-bottom)] backdrop-blur sm:hidden">
