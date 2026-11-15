@@ -7,7 +7,7 @@ export default defineConfig({
   root,
   plugins: [react()],
   css: { postcss: { plugins: [] } },
-  build: { outDir: '../dist', emptyOutDir: true, chunkSizeWarningLimit: 800 },
+  build: { outDir: '../dist', emptyOutDir: true, chunkSizeWarningLimit: 800, assetsInlineLimit: 0 },
   server: { proxy: { '/api': 'http://127.0.0.1:8282' } },
   test: { root, include: ['src/**/*.test.ts'], environment: 'node' },
 });
