@@ -13,6 +13,16 @@ function de_kirim_email(string $ke, string $judul, string $teks, string $html): 
     $dari = (string) ($m['from'] ?? '');
     $nama = (string) ($m['from_name'] ?? 'Dompet Emas');
     $batas = 'b' . bin2hex(random_bytes(8));
+    if ($mode === 'phpmail') {
+        // Cadangan: fungsi mail() server hosting (tanpa kotak email).
+        $kepala = 'From: ' . de_hdr($nama) . " <$dari>\r\n" . "Reply-To: $dari\r\n" . "MIME-Version: 1.0\r\n"
+            . "Content-Type: multipart/alternative; boundary=\"$batas\"";
+        $isi = "--$batas\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\n\r\n" . chunk_split(base64_encode($teks))
+            . "--$batas\r\nContent-Type: text/html; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\n\r\n" . chunk_split(base64_encode($html)) . "--$batas--\r\n";
+        $ok = @mail($ke, de_hdr($judul), $isi, $kepala, '-f' . $dari);
+        if (!$ok) de_log('mail() gagal');
+        return $ok;
+    }
     $pesan = 'From: ' . de_hdr($nama) . " <$dari>\r\n"
         . "To: <$ke>\r\n"
         . 'Subject: ' . de_hdr($judul) . "\r\n"
