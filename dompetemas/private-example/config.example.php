@@ -5,9 +5,10 @@ return [
     'db_user' => 'GANTI',
     'db_pass' => 'GANTI',
     'salt' => 'GANTI_DENGAN_TEKS_ACAK_PANJANG',
-    'mail' => ['mode' => 'smtp', 'host' => 'smtp.hostinger.com', 'port' => 465, 'user' => 'noreply@dwabussines.com', 'pass' => 'GANTI', 'from' => 'noreply@dwabussines.com', 'from_name' => 'Dompet Emas'],
+    // mode: 'mailapi' (Hostinger Mail API, token khusus satu kotak email), 'smtp', atau 'phpmail' (cadangan)
+    'mail' => ['mode' => 'mailapi', 'mailbox_id' => 'GANTI', 'api_token' => 'GANTI', 'from' => 'customerservice@dwabussines.com', 'from_name' => 'Dompet Emas'],
     'allowed_origins' => ['https://dompetemas.dwabussines.com'],
-    'admin_emails' => ['customerservice@dwabussines.com'],
+    'admin_emails' => [],
     'cookie_secure' => true,
     'harga_url' => 'https://tokobbgold.dwabussines.com/api/harga.php',
     'cache_ttl' => 300,

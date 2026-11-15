@@ -13,6 +13,18 @@ function de_kirim_email(string $ke, string $judul, string $teks, string $html): 
     $dari = (string) ($m['from'] ?? '');
     $nama = (string) ($m['from_name'] ?? 'Dompet Emas');
     $batas = 'b' . bin2hex(random_bytes(8));
+    if ($mode === 'mailapi') {
+        // Hostinger Mail API: kirim dari kotak email (token khusus satu kotak, tanpa password).
+        $url = 'https://api.mail.hostinger.com/api/v1/mailboxes/' . rawurlencode((string) $m['mailbox_id']) . '/send';
+        $ch = curl_init($url);
+        curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => true, CURLOPT_POST => true, CURLOPT_CONNECTTIMEOUT => 8, CURLOPT_TIMEOUT => 20,
+            CURLOPT_HTTPHEADER => ['Authorization: Bearer ' . $m['api_token'], 'Content-Type: application/json', 'Accept: application/json'],
+            CURLOPT_POSTFIELDS => json_encode(['to' => [$ke], 'displayName' => $nama, 'subject' => $judul, 'text' => $teks, 'html' => $html])]);
+        $b = curl_exec($ch); $kode = (int) curl_getinfo($ch, CURLINFO_RESPONSE_CODE); curl_close($ch);
+        if ($kode >= 200 && $kode < 300) return true;
+        de_log('mail api gagal ' . $kode . ' ' . substr((string) $b, 0, 200));
+        return false;
+    }
     if ($mode === 'phpmail') {
         // Cadangan: fungsi mail() server hosting (tanpa kotak email).
         $kepala = 'From: ' . de_hdr($nama) . " <$dari>\r\n" . "Reply-To: $dari\r\n" . "MIME-Version: 1.0\r\n"
