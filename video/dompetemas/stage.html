@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8">
+<style>
+@font-face { font-family: J; font-weight: 600; src: url(../../node_modules/@fontsource/plus-jakarta-sans/files/plus-jakarta-sans-latin-600-normal.woff2); }
+@font-face { font-family: J; font-weight: 700; src: url(../../node_modules/@fontsource/plus-jakarta-sans/files/plus-jakarta-sans-latin-700-normal.woff2); }
+@font-face { font-family: J; font-weight: 800; src: url(../../node_modules/@fontsource/plus-jakarta-sans/files/plus-jakarta-sans-latin-800-normal.woff2); }
+* { box-sizing: border-box; margin: 0; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #07110E; font-family: J, sans-serif; }
+#stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: radial-gradient(120% 55% at 50% -5%, #17402F 0%, #07110E 62%); }
+.kilau { position: absolute; width: 900px; height: 900px; border-radius: 50%; background: radial-gradient(circle, rgba(246,222,147,.16), transparent 65%); }
+#kamera { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; }
+.hp { position: absolute; left: 252px; top: 600px; width: 576px; height: 1210px; border-radius: 64px; background: #0B1612; padding: 18px; box-shadow: 0 50px 100px rgba(0,0,0,.6), 0 0 0 5px #D8A93A, inset 0 0 0 2px rgba(255,255,255,.08); }
+.hp .layar { width: 540px; height: 1174px; border-radius: 48px; overflow: hidden; position: relative; background: #07110E; }
+.hp .layar img { position: absolute; left: 0; top: 0; width: 540px; }
+.hp .notch { position: absolute; left: 50%; top: 30px; width: 130px; height: 30px; margin-left: -65px; border-radius: 20px; background: #000; z-index: 2; }
+.judul { position: absolute; left: 60px; right: 60px; top: 190px; text-align: center; color: #F2EEE3; font-weight: 800; font-size: 74px; line-height: 1.1; letter-spacing: -.02em; text-shadow: 0 6px 24px rgba(0,0,0,.5); }
+.e { background: linear-gradient(90deg, #F6DE93, #E3BC55); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.sub { position: absolute; left: 80px; right: 80px; text-align: center; color: rgba(242,238,227,.88); font-weight: 600; font-size: 42px; line-height: 1.25; }
+.pil { display: inline-block; background: linear-gradient(135deg, #F6DE93, #D8A93A); color: #1A1406; font-weight: 800; border-radius: 999px; padding: 16px 38px; font-size: 40px; }
+.label { position: absolute; left: 0; right: 0; bottom: 96px; text-align: center; }
+.label span { background: rgba(7,17,14,.88); border: 1px solid rgba(255,255,255,.15); color: rgba(242,238,227,.85); padding: 9px 20px; border-radius: 14px; font-size: 25px; font-weight: 600; }
+.model { position: absolute; filter: drop-shadow(0 40px 40px rgba(0,0,0,.55)); }
+.kartu { position: absolute; left: 80px; right: 80px; border-radius: 48px; padding: 56px 50px; background: linear-gradient(145deg, rgba(255,255,255,.1), rgba(255,255,255,.03)); border: 2px solid rgba(255,255,255,.14); color: #F2EEE3; text-align: center; box-shadow: 0 30px 70px rgba(0,0,0,.45); }
+.merek { display: inline-flex; align-items: center; gap: 26px; font-weight: 800; font-size: 96px; color: #F2EEE3; letter-spacing: -.03em; }
+.merek i { width: 120px; height: 120px; border-radius: 34px; background: linear-gradient(135deg, #F6DE93, #C9971F); display: grid; place-items: center; box-shadow: 0 16px 50px rgba(227,188,85,.45); }
+.pita { position: absolute; left: 0; right: 0; top: 0; height: 640px; background: linear-gradient(#0C1F18 52%, rgba(12,31,24,0)); pointer-events: none; }
+</style></head>
+<body><div id="stage">
+<div class="kilau" style="left:420px;top:-380px"></div><div class="kilau" style="left:-480px;top:1300px;opacity:.6"></div>
+<div id="kamera"></div>
+<div class="pita" id="pita"></div>
+<div id="atas"></div>
+</div>
+<script>
+const FOKUS = __FOKUS__;
+const SX = 270, SY = 618, K = 540 / 390;
+const fk = (n) => { const b = FOKUS[n]; return [SX + (b.x + b.width / 2) * K, SY + (b.y + b.height / 2) * K]; };
+const ease = (x) => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const eo = (x) => 1 - Math.pow(1 - x, 3);
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const muncul = (t, a, d = .35) => eo(clamp((t - a) / d));
+const C = [540, 960];
+function kamera(t, kunci) {
+  if (t <= kunci[0][0]) return kunci[0].slice(1);
+  for (let i = 0; i < kunci.length - 1; i++) {
+    const [t0, ...a] = kunci[i], [t1, ...b] = kunci[i + 1];
+    if (t <= t1) { const p = ease((t - t0) / (t1 - t0)); return a.map((v, j) => v + (b[j] - v) * p); }
+  }
+  return kunci[kunci.length - 1].slice(1);
+}
+const hp = (img) => `<div class="hp"><div class="notch"></div><div class="layar"><img src="cap/${img}.png"></div></div>`;
+const judul = (html, t, a, top = 190, size = 74) => { const m = muncul(t, a, .3); return `<div class="judul" style="top:${top + (1 - m) * 30}px;opacity:${m};font-size:${size}px">${html}</div>`; };
+const sub = (html, t, a, top, size = 42) => `<div class="sub" style="top:${top + (1 - muncul(t, a)) * 20}px;opacity:${muncul(t, a)};font-size:${size}px">${html}</div>`;
+const label = (s) => `<div class="label"><span>${s}</span></div>`;
+function model(img, x, y, w, t, fase = 0, a = -9) {
+  const m = muncul(t, a, .5), bob = Math.sin(t * 1.6 + fase) * 14, rot = Math.sin(t * .9 + fase) * 6, sx = .92 + .08 * Math.cos(t * .9 + fase);
+  return `<img class="model" src="cap/${img}.png" style="left:${x}px;top:${y + bob + (1 - m) * 60}px;width:${w}px;opacity:${m};transform:rotate(${rot}deg) scaleX(${sx})">`;
+}
+const ikon = '<svg width="64" height="64" viewBox="0 0 24 24"><path d="M4 16l3-8h10l3 8z" fill="#1A1406"/></svg>';
+const LAB_LAYAR = 'Tampilan situs Dompet Emas · akun &amp; angka contoh';
+
+const ADEGAN = [
+  { a: 0, b: 3.96, kam: [[0, 1, ...C], [3.96, 1.08, ...C]], isi: (t) =>
+      model('bar3d', 150, 860, 460, t, 0, -9) + model('ring3d', 560, 980, 400, t, 1.4, -9) + model('kalung3d', 380, 1290, 380, t, 2.6, -9),
+    atas: (t) => `<div class="judul" style="top:250px;font-size:66px">Emas yang kamu simpan<br>di lemari...</div>` +
+      `<div class="judul" style="top:520px;font-size:92px;opacity:${muncul(t, 2.25, .25)};transform:scale(${.85 + .15 * muncul(t, 2.25, .35)})">sekarang <span class="e">untung<br>berapa?</span></div>` },
+  { a: 3.96, b: 7.42, kam: [[3.96, 1, ...C], [7.42, 1.06, ...C]], isi: (t) =>
+      `<div class="judul" style="top:560px;font-size:84px;opacity:${1 - muncul(t, 5.3, .3) * .6}">Nggak usah<br><span class="e">nebak-nebak.</span></div>` +
+      `<div style="position:absolute;left:0;right:0;top:${960 + (1 - muncul(t, 5.44)) * 50}px;text-align:center;opacity:${muncul(t, 5.44)}"><div class="sub" style="position:static;margin-bottom:26px">Cek aja di</div><div class="merek"><i>${ikon}</i>Dompet Emas</div></div>` +
+      model('bar3d', 360, 1380, 360, t, .5, 5.6) },
+  { a: 7.42, b: 11.25, kam: [[7.42, 1, ...C], [8.8, 1, ...C], [9.7, 1.75, ...fk('login_email')], [9.99, 1.75, ...fk('login_email')], [10.4, 1.75, ...fk('kode_isian')], [11.25, 1.75, ...fk('kode_isian')]], isi: (t) => hp(t < 9.99 ? 'login' : 'kode'),
+    atas: (t) => t < 8.84 ? judul('Caranya <span class="e">gampang</span>', t, 7.45, 200) : t < 9.99 ? judul('Masuk pakai <span class="e">email</span>', t, 8.86, 200) : judul('nggak perlu <span class="e">password</span>', t, 10.0, 200) },
+  { a: 11.25, b: 14.51, kam: [[11.25, 1.1, ...C], [11.9, 1.6, ...fk('kosong_tambah')], [12.35, 1.6, ...fk('kosong_tambah')], [12.36, 1.15, ...C], [13.2, 1.7, ...fk('form_seg')], [14.51, 1.7, ...fk('form_seg')]], isi: (t) => hp(t < 12.35 ? 'kosong' : 'tambah'),
+    atas: (t) => t < 12.35 ? judul('Tekan <span class="e">tambah +</span>', t, 11.28, 200) : judul('Logam mulia<br>atau <span class="e">perhiasan</span>', t, 12.38, 170, 70) },
+  { a: 14.51, b: 17.72, kam: [[14.51, 1.2, ...C], [15.4, 1.65, ...fk('form_isian')], [17.72, 1.7, ...fk('form_isian')]], isi: () => hp('form_isi'),
+    atas: (t) => judul('Isi <span class="e">berat</span>, <span class="e">tahun</span><br>&amp; <span class="e">harga beli</span>', t, 14.55, 170, 70) + label(LAB_LAYAR) },
+  { a: 17.72, b: 22.92, kam: [[17.72, 1.1, ...C], [19.2, 1.85, ...fk('untung_angka')], [21.6, 1.85, ...fk('untung_angka')], [22.0, 1.85, ...fk('untung_persen')], [22.92, 1.85, ...fk('untung_persen')]], isi: () => hp('hasil_untung'),
+    atas: (t) => t < 19.24 ? judul('Langsung <span class="e">kelihatan</span>', t, 17.75, 200) : judul('Untung berapa<br><span class="e">rupiah</span> &amp; <span class="e">persen</span>', t, 19.26, 170, 70) + label('Angka contoh · perkiraan jika dijual hari ini') },
+  { a: 22.92, b: 25.76, kam: [[22.92, 1.2, ...C], [23.8, 1.85, ...fk('rugi_angka')], [24.7, 1.85, ...fk('rugi_angka')], [25.76, 1.5, ...fk('rugi_info')]], isi: () => hp('hasil_rugi'),
+    atas: (t) => judul('Rugi juga<br><span class="e">dikasih tahu</span>, jujur', t, 22.95, 170, 70) + label('Angka contoh · perkiraan jika dijual hari ini') },
+  { a: 25.76, b: 32.02, kam: [[25.76, 1, ...C], [27.2, 1.5, ...fk('kartu1')], [29.6, 1.5, ...fk('kartu1')], [30.6, 1.5, ...fk('kartu2')], [32.02, 1.5, ...fk('kartu2')]], isi: () => hp('dompet_kartu'),
+    atas: (t) => judul('Semua emasmu<br>jadi <span class="e">kartu 3D</span>', t, 25.8, 170, 72) + label(LAB_LAYAR) },
+  { a: 32.02, b: 38.21, kam: [[32.02, 1.1, ...C], [33.2, 1.75, ...fk('dompet_sumber')], [38.21, 1.8, ...fk('dompet_sumber')]], isi: () => hp('dompet'),
+    atas: (t) => judul('Harga referensi<br><span class="e">terbaru</span>', t, 32.05, 170, 72) +
+      `<div style="position:absolute;left:0;right:0;top:${1420 + (1 - muncul(t, 35.25)) * 40}px;text-align:center;opacity:${muncul(t, 35.25)}"><div style="display:inline-block;background:#FBF7EC;border-radius:36px;padding:26px 46px;box-shadow:0 20px 50px rgba(0,0,0,.45)"><div style="font-size:26px;font-weight:700;color:#55637E;margin-bottom:8px">dari</div><img src="cap/logo_bb.png" style="height:180px;display:block"></div></div>` },
+  { a: 38.21, b: 41.37, kam: [[38.21, 1, ...C], [41.37, 1.06, ...C]], isi: (t) =>
+      `<div class="kartu" style="top:${700 + (1 - muncul(t, 38.25)) * 40}px;opacity:${muncul(t, 38.25)}"><div style="font-size:46px;font-weight:700;color:#F6DE93">Ingat ya,</div><div style="font-size:92px;font-weight:800;margin:14px 0 22px;letter-spacing:-.02em">ini perkiraan.</div><div style="font-size:50px;font-weight:600;opacity:${muncul(t, 39.45)}">Harga di toko<br>bisa beda.</div></div>` },
+  { a: 41.37, b: 44.92, kam: [[41.37, 1.08, ...C], [44.92, 1, ...C]], isi: (t) =>
+      `<div class="judul" style="top:560px;font-size:150px;opacity:${muncul(t, 41.4, .25)};transform:scale(${.8 + .2 * muncul(t, 41.4, .35)})"><span class="e">GRATIS</span></div>` +
+      `<div style="position:absolute;left:0;right:0;top:${900 + (1 - muncul(t, 42.2)) * 30}px;text-align:center;opacity:${muncul(t, 42.2)}"><svg width="130" height="130" viewBox="0 0 24 24" fill="none" stroke="#E3BC55" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>` +
+      `<div class="sub" style="position:static;margin-top:24px;font-size:52px;color:#F2EEE3">Catatan emasmu<br>cuma <span class="e">kamu</span> yang bisa lihat</div></div>` },
+  { a: 44.92, b: 47.0, kam: [[44.92, 1.06, ...C], [47.0, 1, ...C]], isi: (t) =>
+      model('bar3d', 140, 1180, 380, t, 0, -9) + model('ring3d', 560, 1260, 340, t, 1.4, -9),
+    atas: (t) => judul('Coba sekarang', t, 44.94, 330, 70) +
+      `<div class="judul" style="top:470px;font-size:132px;opacity:${muncul(t, 45.85, .25)};transform:scale(${.85 + .15 * muncul(t, 45.85)})">LINK <span class="e">DI BIO</span></div>` +
+      `<div class="sub" style="top:${680}px;opacity:${muncul(t, 45.9)}"><span class="pil" style="font-size:36px">dompetemas.dwabussines.com</span></div>` +
+      `<div class="sub" style="top:800px;opacity:${muncul(t, 45.0)};font-size:34px">Dompet Emas · <span class="e">harga referensi BB GOLD</span></div>` },
+];
+
+window.render = function (t) {
+  const ad = ADEGAN.find((a) => t >= a.a && t < a.b) || ADEGAN[ADEGAN.length - 1];
+  const [s, fx, fy] = kamera(t, ad.kam);
+  const kam = document.getElementById('kamera');
+  kam.style.transform = `translate(540px, 960px) scale(${s}) translate(${-fx}px, ${-fy}px)`;
+  const masuk = ad.a === 0 ? 1 : clamp((t - ad.a) / .14);
+  const isi = ad.isi(t);
+  kam.innerHTML = `<div style="position:absolute;inset:0;opacity:${masuk}">${isi}</div>`;
+  document.getElementById('atas').innerHTML = ad.atas ? ad.atas(t) : '';
+  document.getElementById('pita').style.opacity = isi.includes('class="hp"') ? 1 : 0;
+};
+window.siap = Promise.all([...document.fonts].map((f) => f.load())).then(() => document.fonts.ready);
+</script>
+</body></html>

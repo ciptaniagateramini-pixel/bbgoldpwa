@@ -12,7 +12,7 @@ cat > .local/private/config.php <<PHP
   'cookie_secure' => false, 'harga_url' => 'http://127.0.0.1:${MOCK}/harga.php', 'cache_ttl' => 0,
 ];
 PHP
-php -S 127.0.0.1:${MOCK} dev/mock-bbgold.php >/dev/null 2>&1 & M=$!
+php -S 127.0.0.1:${MOCK} dev/${MOCK_FILE:-mock-bbgold.php} >/dev/null 2>&1 & M=$!
 trap 'kill $M 2>/dev/null' EXIT
 echo "Dompet Emas lokal: http://127.0.0.1:${PORT}"
 DE_CONFIG="$PWD/.local/private/config.php" php -S 127.0.0.1:${PORT} -t dist dev/router.php
